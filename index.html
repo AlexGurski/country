@@ -1,0 +1,63 @@
+                     <html>
+<head>
+  <script src="/js/anychart-base.min.js"></script>
+  <script src="/js/anychart-ui.min.js"></script>
+  <script src="/js/anychart-map.min.js"></script>
+  <script src="/js/anychart-data-adapter.min.js"></script>
+  <script src="/geodata/custom/world/world.js"></script>
+  <script src="/js/j4.js"></script>
+  <style type="text/css">
+
+    html,
+    body,
+    #container {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .anychart-tooltip {
+      background: rgb(53, 42, 194);
+      border: 1px solid #c1c1c1;
+      border-radius: 3px;
+    }
+
+    .anychart-tooltip-title {
+      color: #62e710;
+    }
+  
+</style>
+</head>
+<body>
+  
+  <div id="container"></div>
+  
+
+  <script>
+
+    anychart.onDocumentReady(function () {
+      // The data used in this sample can be obtained from the CDN
+      // https://cdn.anychart.com/samples/maps-choropleth/spanish-language-on-world-map/data.json
+      anychart.data.loadJsonFile(
+        'https://cdn.anychart.com/samples/maps-choropleth/world-governments-map/data.json',
+        function (data) {
+          var dataSet = anychart.data.set(data);
+          var map = anychart.map();
+          map.title('Countries');  
+          map.geoData('anychart.maps.world');
+          // set the chart title              
+          var series = map.choropleth(dataSet);       
+               
+          var zoomController = anychart.ui.zoom();
+          zoomController.render(map);        
+          map.container('container');      
+          map.draw();
+        }
+      );
+    });
+  
+</script>
+</body>
+</html>
+                
