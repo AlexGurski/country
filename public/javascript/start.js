@@ -1,3 +1,4 @@
+"usr strict"
 function readTextFile(file, callback) {
   var rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType("application/json");
@@ -9,39 +10,69 @@ function readTextFile(file, callback) {
   }
   rawFile.send(null);
 }
+const map = anychart.map();/////создание новой карты
+map.geoData('anychart.maps.world'); //инициализация всех стран
 
-  let data = readTextFile("js.json", function(text){
-  data = JSON.parse(text);
+  let data = readTextFile("training/russia.json", function(text){
+    data = JSON.parse(text);
+  });
+  
+ let allCountry =readTextFile("training/allBase.json", function(text){
+  allCountry = JSON.parse(text);
+  map.choropleth(data)
+  map.choropleth(neighbors);    
+  draw()
 });
 
-let data1 = readTextFile("js1.json", function(text){
-   data1 = JSON.parse(text);
-});
 
-const map = anychart.map();
-map.geoData('anychart.maps.world');  
+let neighbors =[{id:"EE"}, {id:"LV"}, {id:"LV"}, {id:"LT"}, {id:"PL"}, {id:"GE"}, {id:"KP"}, {id:"JP"}, {id:"US"},{id:"BY"}];
 
-map.listen('click', function (event) {   
-  //console.log(event.pointIndex) 
- // console.log(data1[event.pointIndex].id)
-  data1.push( {id: 'AU'})
-  map.choropleth(anychart.data.set(data1));      
+function draw () {   
+  map.palette(['red', '#11111']);
+  map.unboundRegions({fill: '#ffb90f'});  
+  map.container('container');  
+  map.draw();
+}  
+ 
+map.listen('click', function (event) { 
+  const clickOnThisCountry =   event.pointIndex 
+    if (!clickOnThisCountry){  
+      console.log('sdfsdf')                     ////захваченная территория
+      data.forEach(el => {
+        for (let i=0;i<el.neighbors.length;i++){
+          neighbors.push({id:el.neighbors[i]})
+        }
+    }); 
+    }else{                                                    ////////////////соседи
+      for (let i=0;i<allCountry.length;i++){
+        if (allCountry[i].id===neighbors[event.pointIndex].id){
+          allCountry[i].neighbors.forEach(item =>{
+            neighbors.push({id:item})
+          })
+          data.push(allCountry[i]);
+          delete neighbors[event.pointIndex];  
          
-      map.draw();
+          break;
+          
+         
+        }
+      }
+}  
+
+map.choropleth(neighbors);
+map.choropleth(data);    
+map.draw();
+console.log(neighbors)
+console.log(data)
+  
 });
 
-
-
-
-anychart.onDocumentLoad(function () { 
-  function draw (data) {   
-    map.unboundRegions({fill: '#ffb90f'});         
-    map.choropleth(anychart.data.set(data));      
-    map.container('container');      
-    map.draw();
-  }  
-  console.log('fsfd')
+window.onload = function() {
+  console.log(neighbors)
   console.log(data)
-  draw(data)
-
-});
+  /*
+  var background = map.background();
+    background.stroke('3 black');
+    background.corners(100);
+    background.fill('blue');*/
+};
