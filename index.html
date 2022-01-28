@@ -1,4 +1,4 @@
-                     <html>
+<html>
 <head>
   <script src="/js/anychart-base.min.js"></script>
   <script src="/js/anychart-ui.min.js"></script>
@@ -6,62 +6,14 @@
   <script src="/js/anychart-data-adapter.min.js"></script>
   <script src="/geodata/custom/world/world.js"></script>
   <script src="/js/j4.js"></script>
-  <style type="text/css">
+  <script src="/public/javascript/start.js"></script>
 
-    html,
-    body,
-    #container {
-      margin: 0;
-      padding: 0;
-    }
-
-    .anychart-tooltip {
-      background: rgb(169, 219, 111);
-      border: 1px solid #c1c1c1;
-      border-radius: 3px;
-    }
-
-    .anychart-tooltip-title {
-      color: #62e710;
-    }
-  
 </style>
 </head>
-<body>
-  
-  <div id="container")"></div>
-  
-
+<body>  
+  <div id="container")"></div>  
   <script>
-    anychart.onDocumentReady(function () {      
-      anychart.data.loadJsonFile('js.json',
-        function (data) {          
-          var dataSet = anychart.data.set(data);
-          var map = anychart.map();
-          map.title('Countries');  
-          map.geoData('anychart.maps.world');
-          // set the chart title              
-          var series = map.choropleth(dataSet);  
-
-          var background = map.background();
-          map.listen('click', function (event) {
-       console.log(event.actualTarget) 
-       console.log( event.currentTarget) 
-       console.log(event.iterator) 
-       console.log(event.originalEvent) 
-       console.log(event.point)
-       console.log(event.pointIndex) 
-    });
-background.stroke('2 #2196F3');
-background.corners(10);
-background.fill('#2196F3');
-
-          map.container('container');      
-          map.draw();
-        }
-      );
-     
-    });
+   
     
 </script>
 </body>
