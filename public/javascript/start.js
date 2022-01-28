@@ -1,22 +1,26 @@
-function readTextFile(file, callback) {
-  var rawFile = new XMLHttpRequest();
-  rawFile.overrideMimeType("application/json");
-  rawFile.open("GET", file, true);
-  rawFile.onreadystatechange = function() {
-      if (rawFile.readyState === 4 && rawFile.status == "200") {
-          callback(rawFile.responseText);
-      }
-  }
-  rawFile.send(null);
+
+
+  let data = [
+    {id: 'RU', name: 'Vanuatu'},
+{id: 'WF', name: 'Wallis and Futuna'},
+{id: 'WS', name: 'Samoa'},
+ {id: 'YE', name: 'Yemen'},
+  ]
+let data1=[
+  {
+    "id": "YT",
+    "name": "Mayotte"
+}, {
+    "id": "ZA",
+    "name": "South Africa"
+}, {
+    "id": "ZM",
+    "name": "Zambia"
+}, {
+    "id": "ZW",
+    "name": "Zimbabwe"
 }
-
-  let data = readTextFile("js.json", function(text){
-  data = JSON.parse(text);
-});
-
-let data1 = readTextFile("js1.json", function(text){
-   data1 = JSON.parse(text);
-});
+]
 
 const map = anychart.map();
 map.geoData('anychart.maps.world');  
@@ -24,9 +28,9 @@ map.geoData('anychart.maps.world');
 map.listen('click', function (event) {   
   //console.log(event.pointIndex) 
  // console.log(data1[event.pointIndex].id)
-  data1.push( {id: 'AU'})
+//  data1.push( {id: 'AU'})
   map.choropleth(anychart.data.set(data1));      
-         
+  map.palette(['#ffa726', '#fb8c00']);
       map.draw();
 });
 
