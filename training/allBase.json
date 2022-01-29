@@ -149,7 +149,8 @@
 }, {
     "id": "CA",
     "name": "Canada",
-    "value": "Constitutional monarchy"
+    "value": "Constitutional monarchy",
+    "neighbors":["BR"]
 }, {
     "id": "CC",
     "name": "Cocos (Keeling) Islands",

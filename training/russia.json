@@ -2,6 +2,6 @@
     {
     "id": "RU",
     "name": "Russian Federation",
-    "neighbors": ["EE", "LV", "BY", "LT","PL","GE","KP","JP","US"]
+    "neighbors": ["EE", "LV", "BY","LT","PL","GE","KP","JP"]
 }
 ]
