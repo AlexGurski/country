@@ -1,5 +1,6 @@
 
 
+
   let data = [
     {id: 'RU', name: 'Vanuatu'},
 {id: 'WF', name: 'Wallis and Futuna'},
@@ -22,30 +23,45 @@ let data1=[
 }
 ]
 
-const map = anychart.map();
-map.geoData('anychart.maps.world');  
 
-map.listen('click', function (event) {   
-  //console.log(event.pointIndex) 
- // console.log(data1[event.pointIndex].id)
-//  data1.push( {id: 'AU'})
-  map.choropleth(anychart.data.set(data1));      
-  map.palette(['#ffa726', '#fb8c00']);
-      map.draw();
+ 
+map.listen('click', function (event) {                    ////захваченная территория
+  const clickOnThisCountry =   event.pointIndex 
+  console.log(clickOnThisCountry)
+    if (!clickOnThisCountry){                            
+      data.forEach(el => {
+        for (let i=0;i<el.neighbors.length;i++){
+          neighbors.push({id:el.neighbors[i]})
+        }
+    }); 
+    }else{                                                    ////////////////соседи
+      for (let i=0;i<allCountry.length;i++){
+        if (allCountry[i].id===neighbors[event.pointIndex].id){
+          allCountry[i].neighbors.forEach(item =>{
+            neighbors.push({id:item})
+          })
+          data.push(allCountry[i]);
+          delete neighbors[event.pointIndex];           
+          break;
+        }
+      }
+}  
+
+map.choropleth(neighbors,data);
+console.log(neighbors)
+console.log(data)
+
+console.log(map)
+  
 });
 
-
-
-
-anychart.onDocumentLoad(function () { 
-  function draw (data) {   
-    map.unboundRegions({fill: '#ffb90f'});         
-    map.choropleth(anychart.data.set(data));      
-    map.container('container');      
-    map.draw();
-  }  
-  console.log('fsfd')
+window.onload = function() {
+  //map.callout({items: ["LV", "US"]});
+  console.log(neighbors)
   console.log(data)
-  draw(data)
-
-});
+  /*
+  var background = map.background();
+    background.stroke('3 black');
+    background.corners(100);
+    background.fill('blue');*/
+};
