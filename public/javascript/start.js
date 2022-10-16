@@ -1,25 +1,28 @@
-"usr strict"
-const map = anychart.map();/////создание новой карты
-map.geoData('anychart.maps.world'); //инициализация всех стран
-
-  let data = readTextFile("training/russia.json", function(text){                  //подгрузка стартовой страны
-    data = JSON.parse(text);
-  });
-  
- let allCountry =readTextFile("training/allBase.json", function(text){              // загрузка всех стран
-  allCountry = JSON.parse(text);
-  
-  map.choropleth(neighbors); 
-  map.choropleth(data)
-  map.palette(['red', '#11111']);
-  map.unboundRegions({fill: '#ffb90f'});  
-  map.container('container');    
-  map.draw();
-  console.log(map)
-});
 
 
-let neighbors =[{id:"EE"}, {id:"LV"}, {id:"LV"}, {id:"LT"}, {id:"PL"}, {id:"GE"}, {id:"KP"}, {id:"JP"}, {id:"US"},{id:"BY"}];
+
+  let data = [
+    {id: 'RU', name: 'Vanuatu'},
+{id: 'WF', name: 'Wallis and Futuna'},
+{id: 'WS', name: 'Samoa'},
+ {id: 'YE', name: 'Yemen'},
+  ]
+let data1=[
+  {
+    "id": "YT",
+    "name": "Mayotte"
+}, {
+    "id": "ZA",
+    "name": "South Africa"
+}, {
+    "id": "ZM",
+    "name": "Zambia"
+}, {
+    "id": "ZW",
+    "name": "Zimbabwe"
+}
+]
+
 
  
 map.listen('click', function (event) {                    ////захваченная территория
